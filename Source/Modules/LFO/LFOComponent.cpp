@@ -9,9 +9,7 @@
 */
 
 #include "LFOComponent.h"
-
-
-#include <JuceHeader.h>
+#include <juce_audio_processors/juce_audio_processors.h>
 #include "LFOComponent.h"
 
 
@@ -19,8 +17,8 @@
 LFOComponent::LFOComponent(juce::AudioProcessorValueTreeState& apvts, juce::String slot)
     : apvts(apvts), slot(slot)
 {
-
-
+    
+    
 }
 
 LFOComponent::~LFOComponent()

@@ -9,6 +9,7 @@
 */
 
 #include "SynthVoice.h"
+#include <juce_dsp/juce_dsp.h>
 
 
 bool SynthVoice::canPlaySound (juce::SynthesiserSound* sound)
@@ -66,10 +67,7 @@ void SynthVoice::prepareToPlay (double sampleRate, int samplesPerBlock, int outp
     for (int i=0; i<4; i++){
         InputOscillators[i].prepare(spec);
         InputOscillators[i].initialise([](float x) { return 0.0f; });
-        
     }
-    
-    
     
     
     isPrepared = true;

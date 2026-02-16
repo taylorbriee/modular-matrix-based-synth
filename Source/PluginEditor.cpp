@@ -240,8 +240,7 @@ void PluginEditor::updateOutputOptions(juce::String Slot, juce::String Module)
 {
     
     
-    //hide then make all the buttons visible
-    
+    //Essentially adds the new output options when a new vco has been added.
     
     for (auto* box : outputBoxes)
     {

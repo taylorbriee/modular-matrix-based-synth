@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include <JuceHeader.h>
+#include <juce_audio_processors/juce_audio_processors.h>
 #include "../BaseComponent.h"
 
 
