@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/CMakeFiles/focusritetest-populate"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/CMakeFiles/focusritetest-populate.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/CMakeFiles/focusritetest-populate-complete.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/focusritetest-populate-prefix/src/focusritetest-populate-stamp/focusritetest-populate-build.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/focusritetest-populate-prefix/src/focusritetest-populate-stamp/focusritetest-populate-configure.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/focusritetest-populate-prefix/src/focusritetest-populate-stamp/focusritetest-populate-download.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/focusritetest-populate-prefix/src/focusritetest-populate-stamp/focusritetest-populate-install.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/focusritetest-populate-prefix/src/focusritetest-populate-stamp/focusritetest-populate-mkdir.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/focusritetest-populate-prefix/src/focusritetest-populate-stamp/focusritetest-populate-patch.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/focusritetest-populate-prefix/src/focusritetest-populate-stamp/focusritetest-populate-test.rule"
+		},
+		{
+			"file" : "/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-subbuild/focusritetest-populate-prefix/src/focusritetest-populate-stamp/focusritetest-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"focusritetest-populate"
+		],
+		"name" : "focusritetest-populate"
+	}
+}

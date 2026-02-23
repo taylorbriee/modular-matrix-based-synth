@@ -10,6 +10,8 @@
 
 #include <juce_audio_processors/juce_audio_processors.h>
 #include "OSCComponent.h"
+#include <focusrite/e2e/ComponentSearch.h>
+
 
 
 //==============================================================================
@@ -45,7 +47,10 @@ void OSCComponent::paint (juce::Graphics& g)
 
 void OSCComponent::resized()
 {
-    
+
+    compIDTemplate = "VCO"+slot;
+
+
     window = getLocalBounds();
     
     titleArea = window.removeFromTop(60);
@@ -76,6 +81,8 @@ void OSCComponent::resized()
     freqModDial.setBounds(topRightArea);
     
     freqModDial.setRange(-100.0, 100.0, 5.0);
+
+    focusrite::e2e::ComponentSearch::setTestId(freqModDial, compIDTemplate+"FreqMod");
     
     freqDial.setSliderStyle(juce::Slider::Rotary);
     freqDial.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 80, 20);
@@ -84,7 +91,8 @@ void OSCComponent::resized()
     freqDial.setSkewFactor(0.3);
     freqDial.setTextValueSuffix(" Hz");
     freqDial.setRange(0.0001, 1024, 0.0001);
-    
+
+    focusrite::e2e::ComponentSearch::setTestId(freqDial, compIDTemplate+"Freq");
     
     auto windowBottomHalf = window;
     
@@ -102,8 +110,10 @@ void OSCComponent::resized()
     waveTypeBox.addItem("Square", 3);
     waveTypeBox.addItem("Noise", 4);
     waveTypeBox.setSelectedId(1);
-    
     waveTypeBox.setBounds(bottomSeg1);
+
+    focusrite::e2e::ComponentSearch::setTestId(waveTypeBox, compIDTemplate+"WaveType");
+
     
     
     addAndMakeVisible(perfMode);
@@ -112,7 +122,7 @@ void OSCComponent::resized()
     perfMode.setSelectedId(1);
     perfMode.setBounds(bottomSeg2);
     
-    
+    focusrite::e2e::ComponentSearch::setTestId(waveTypeBox, compIDTemplate+"PerfMode");
     
     
     addAndMakeVisible(oscVoices);
@@ -120,6 +130,8 @@ void OSCComponent::resized()
     oscVoices.addItem("Polyphonic", 2);
     oscVoices.setSelectedId(1);
     oscVoices.setBounds(bottomSeg3);
+
+    focusrite::e2e::ComponentSearch::setTestId(waveTypeBox, compIDTemplate+"OscVox");
 
 
     addAndMakeVisible(backButton);
@@ -129,6 +141,9 @@ void OSCComponent::resized()
     backButton.onClick = [this]() {
         this->setVisible(false);
     };
+
+    focusrite::e2e::ComponentSearch::setTestId(backButton, compIDTemplate+"Back");
+
 
     addAndMakeVisible(freqLabel);
     addAndMakeVisible(freqModLabel);
@@ -156,7 +171,8 @@ void OSCComponent::resized()
     juce::String Freq_Mod_Param = slot+"_VCO_Freq_Mod";
     VCO_Freq_Attach = std::make_unique<SliderAttachment>(apvts, Freq_Param, freqDial);
     VCO_Freq_Mod_Attach = std::make_unique<SliderAttachment>(apvts, Freq_Mod_Param, freqModDial);
-    
+
+
     
  
 }

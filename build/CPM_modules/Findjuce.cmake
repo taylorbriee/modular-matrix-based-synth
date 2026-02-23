@@ -1,0 +1,3 @@
+include("/Users/brierley/Desktop/WebMatrixSynth/build/cmake/CPM_0.34.0.cmake")
+CPMAddPackage(NAME;juce;GIT_REPOSITORY;https://github.com/juce-framework/JUCE.git;GIT_TAG;8.0.12)
+set(juce_FOUND TRUE)

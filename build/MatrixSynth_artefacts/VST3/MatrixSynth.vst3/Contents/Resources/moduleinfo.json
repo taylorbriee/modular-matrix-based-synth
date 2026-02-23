@@ -1,0 +1,48 @@
+{
+  "Name": "MatrixSynth",
+  "Version": "0.0.1",
+  "Factory Info": {
+    "Vendor": "TaylorBrierley",
+    "URL": "",
+    "E-Mail": "",
+    "Flags": {
+      "Unicode": true,
+      "Classes Discardable": false,
+      "Component Non Discardable": false,
+    },
+  },
+  "Classes": [
+    {
+      "CID": "ABCDEF019182FAEB5442417552656730",
+      "Category": "Audio Module Class",
+      "Name": "MatrixSynth",
+      "Vendor": "TaylorBrierley",
+      "Version": "0.0.1",
+      "SDKVersion": "VST 3.8.0",
+      "Sub Categories": [
+        "Instrument",
+        "Synth",
+      ],
+      "Class Flags": 2,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+    {
+      "CID": "ABCDEF011234ABCD5442417552656730",
+      "Category": "Component Controller Class",
+      "Name": "MatrixSynth",
+      "Vendor": "TaylorBrierley",
+      "Version": "0.0.1",
+      "SDKVersion": "VST 3.8.0",
+      "Sub Categories": [
+        "Instrument",
+        "Synth",
+      ],
+      "Class Flags": 2,
+      "Cardinality": 2147483647,
+      "Snapshots": [
+      ],
+    },
+  ],
+}

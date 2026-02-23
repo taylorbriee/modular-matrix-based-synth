@@ -11,6 +11,8 @@
 #include "LFOComponent.h"
 #include <juce_audio_processors/juce_audio_processors.h>
 #include "LFOComponent.h"
+#include <focusrite/e2e/ComponentSearch.h>
+
 
 
 //==============================================================================
@@ -47,7 +49,7 @@ void LFOComponent::paint (juce::Graphics& g)
 
 void LFOComponent::resized()
 {
-    
+    compIDTemplate = "LFO"+slot;
 
     window = getLocalBounds();
     
@@ -55,8 +57,6 @@ void LFOComponent::resized()
     
     addAndMakeVisible(freqDial);
     addAndMakeVisible(pulseWidthDial);
-    
-    
 
     
     auto topLeftArea = window.removeFromTop(window.getHeight() * 0.5);
@@ -72,7 +72,7 @@ void LFOComponent::resized()
     freqLabel.setJustificationType(juce::Justification::centred);
     pulseWidthLabel.setJustificationType(juce::Justification::centred);
 
-    
+
     topLeftDialBounds = topLeftDialBounds;
     
     freqDial.setSliderStyle(juce::Slider::Rotary);
@@ -82,10 +82,11 @@ void LFOComponent::resized()
     freqDial.setSkewFactor(0.3);
     freqDial.setTextValueSuffix(" Hz");
     freqDial.setRange(0.0001, 1024, 0.0001);
-    
 
-    
-    
+    focusrite::e2e::ComponentSearch::setTestId(freqDial, compIDTemplate+"Freq");
+
+    focusrite::e2e::ComponentSearch::setTestId(backButton, compIDTemplate+"Back");
+
     
     
     pulseWidthDial.setSliderStyle(juce::Slider::Rotary);
@@ -97,8 +98,7 @@ void LFOComponent::resized()
 
     
     auto windowBottomHalf = window;
-    
-    
+
     auto bottomSeg1 = windowBottomHalf.removeFromTop(windowBottomHalf.getHeight() / 4);
 
     auto bottomSeg4 = windowBottomHalf;
@@ -143,7 +143,7 @@ void LFOComponent::resized()
     LFO_Freq_Attach = std::make_unique<SliderAttachment>(apvts, Freq_Param, freqDial);
     LFO_PW_Attach = std::make_unique<SliderAttachment>(apvts, PW_Param, pulseWidthDial);
     LFO_WF_Attach = std::make_unique<ComboBoxAttachment>(apvts, WF_Param, waveTypeBox);
- 
+
 }
 
 void LFOComponent::loadState()

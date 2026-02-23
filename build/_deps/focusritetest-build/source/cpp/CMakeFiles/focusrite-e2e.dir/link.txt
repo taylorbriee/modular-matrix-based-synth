@@ -1,0 +1,2 @@
+/usr/bin/ar qc libfocusrite-e2e.a "CMakeFiles/focusrite-e2e.dir/source/Command.cpp.o" "CMakeFiles/focusrite-e2e.dir/source/ComponentSearch.cpp.o" "CMakeFiles/focusrite-e2e.dir/source/Connection.cpp.o" "CMakeFiles/focusrite-e2e.dir/source/DefaultCommandHandler.cpp.o" "CMakeFiles/focusrite-e2e.dir/source/Event.cpp.o" "CMakeFiles/focusrite-e2e.dir/source/KeyPress.cpp.o" "CMakeFiles/focusrite-e2e.dir/source/Response.cpp.o" "CMakeFiles/focusrite-e2e.dir/source/TestCentre.cpp.o"
+/usr/bin/ranlib libfocusrite-e2e.a

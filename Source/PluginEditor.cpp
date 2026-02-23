@@ -13,6 +13,8 @@
 #include <juce_gui_basics/juce_gui_basics.h> // Include JUCE basics
 #include <iostream>
 #include <format>
+#include <focusrite/e2e/ComponentSearch.h>
+
 
 
 
@@ -45,11 +47,12 @@ PluginEditor::PluginEditor (WebMatrixSynthAudioProcessor& p)
 //        addAndMakeVisible(*dial);
 //    }
     
-
+    focusrite::e2e::ComponentSearch::setTestId(*dials[0], "1x1Dial");
 
     for(int y=1; y<5; y++){
         for(int x=1; x<5; x++){
-            
+
+
             int index = (y - 1) * 4 + (x - 1);
             dials[index]->setSliderStyle(juce::Slider::Rotary);
             dials[index]->setTextBoxStyle(juce::Slider::TextBoxRight, false, 60, 20);
@@ -59,6 +62,8 @@ PluginEditor::PluginEditor (WebMatrixSynthAudioProcessor& p)
             addAndMakeVisible(*dials[index]);
             
             juce::String paramID = juce::String(x)+"x"+juce::String(y) + "Dial";
+
+            focusrite::e2e::ComponentSearch::setTestId(*dials[index], paramID);
             
             sliderAttachments.push_back(std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(
                 apvts, paramID, *dials[index] ));
@@ -70,24 +75,29 @@ PluginEditor::PluginEditor (WebMatrixSynthAudioProcessor& p)
     //GENERATING ALL ITEMS FOR THE OUPUT BOXES
     
     
-
+    int inputIDNum = 1;
     
     for (auto* box : inputBoxes)  // Assuming `dials` is an array or vector of sliders
     {
+        focusrite::e2e::ComponentSearch::setTestId(*box, "InputBox" + juce::String(inputIDNum));
         
         box->addItem(" ", 1);
 
         box->addSectionHeading("Generator Modules");
-
         box->addItem("VCO", 2);
         box->addItem("LFO", 3);
 
         box->setSelectedId(1, juce::dontSendNotification);
-     
-        
+
         addAndMakeVisible(box);
+
+        inputIDNum++;
     }
-    
+
+    focusrite::e2e::ComponentSearch::setTestId(inputBox1, "InputBox1");
+
+
+
     int id=1;
     
     OutComboBoxIdToText.insert(std::pair<juce::String, int>(" ", id));
@@ -124,7 +134,12 @@ PluginEditor::PluginEditor (WebMatrixSynthAudioProcessor& p)
         
 
     }
-    
+
+    focusrite::e2e::ComponentSearch::setTestId(outputBox1, "outputBox1");
+    focusrite::e2e::ComponentSearch::setTestId(outputBox2, "outputBox2");
+    focusrite::e2e::ComponentSearch::setTestId(outputBox3, "outputBox3");
+    focusrite::e2e::ComponentSearch::setTestId(outputBox4, "outputBox4");
+
     for (auto* box : outputBoxes)  // Assuming `dials` is an array or vector of sliders
     {
         id=1;
@@ -154,15 +169,6 @@ PluginEditor::PluginEditor (WebMatrixSynthAudioProcessor& p)
 
             id++;
         }
-        
-
-        
-        
-        //Hide all options here.
-        
-        
-        
-        //add all items to each output box
         addAndMakeVisible(box);
     }
     
@@ -283,11 +289,6 @@ void PluginEditor::updateButtons(int index, juce::String updateTo)
 {
     
     selectedModules[index]=updateTo;
-
-
-
-    
-    
     
     // Create new buttons based on selectedModules
     if (updateTo == "VCO")
@@ -308,18 +309,14 @@ void PluginEditor::updateButtons(int index, juce::String updateTo)
         
         apvts.getParameter("Slot"+juce::String(index+1)+"_VCO_isEnabled")->setValueNotifyingHost(true);
         moduleComponents[index] = std::make_unique<OSCComponent>(apvts, juce::String("Slot"+juce::String(index+1)));
-        
 
-    
-        //possibly create a new array storing strings of chosen modules
 
-        
-//            newButton = std::make_unique<juce::TextButton>("VCO " + juce::String(++vcoCounter));
         newButton = std::make_unique<juce::TextButton>("VCO Slot: " + juce::String(index+1));
+        focusrite::e2e::ComponentSearch::setTestId(*newButton, "VCOSlot"+juce::String(index+1));
+
         addAndMakeVisible(*newButton);
         
         newButton->onClick = [this, index]() {
-
             addAndMakeVisible(*moduleComponents[index]);
             moduleComponents[index]->setBounds(getLocalBounds());
         };
@@ -337,6 +334,8 @@ void PluginEditor::updateButtons(int index, juce::String updateTo)
         
         audioProcessor.addModule("LFO", index);
         newButton = std::make_unique<juce::TextButton>("LFO Slot: " + juce::String(index+1));
+        focusrite::e2e::ComponentSearch::setTestId(*newButton, "LFOSlot"+juce::String(index+1));
+
         addAndMakeVisible(*newButton);
 
         

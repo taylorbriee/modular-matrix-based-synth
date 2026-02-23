@@ -9,12 +9,11 @@
 #pragma once
 
 #include <juce_audio_processors/juce_audio_processors.h>
-
 #include "SynthSound.h"
 #include "SynthVoice.h"
-
 #include <vector>
 #include <memory>
+#include <focusrite/e2e/TestCentre.h>
 
 
 //==============================================================================
@@ -82,11 +81,15 @@ public:
 
 private:
     //==============================================================================
-    
+
+    std::unique_ptr <focusrite::e2e::TestCentre> testCentre = focusrite::e2e::TestCentre::create();
+
+
     juce::String slot;
     juce::Synthesiser synth;
     std::vector<std::unique_ptr<SynthVoice>> currentVoices;
     juce::String OSCSlots[4] = {"", "", "", ""};
+
 
 
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();

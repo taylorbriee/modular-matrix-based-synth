@@ -35,7 +35,7 @@ private:
 
     juce::AudioProcessorValueTreeState& apvts;
     
-    juce::String slot;    
+    juce::String slot, compIDTemplate;
     juce::Label freqLabel, freqModLabel;
     
     juce::TextButton backButton;

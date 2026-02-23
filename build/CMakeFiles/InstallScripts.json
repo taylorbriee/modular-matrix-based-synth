@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/brierley/Desktop/WebMatrixSynth/build/cmake_install.cmake",
+		"/Users/brierley/Desktop/WebMatrixSynth/build/_deps/juce-build/cmake_install.cmake",
+		"/Users/brierley/Desktop/WebMatrixSynth/build/_deps/juce-build/modules/cmake_install.cmake",
+		"/Users/brierley/Desktop/WebMatrixSynth/build/_deps/juce-build/extras/Build/cmake_install.cmake",
+		"/Users/brierley/Desktop/WebMatrixSynth/build/_deps/juce-build/extras/Build/juceaide/cmake_install.cmake",
+		"/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-build/cmake_install.cmake",
+		"/Users/brierley/Desktop/WebMatrixSynth/build/_deps/focusritetest-build/source/cpp/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

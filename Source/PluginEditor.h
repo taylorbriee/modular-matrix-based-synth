@@ -56,11 +56,15 @@ private:
         &dial_1x4, &dial_2x4, &dial_3x4, &dial_4x4,
         &oDial1, &oDial2, &oDial3, &oDial4
     };
-    
+
     juce::ComboBox* inputBoxes[4] = {
         &inputBox1, &inputBox2, &inputBox3, &inputBox4
     };
-    
+
+
+
+
+
     juce::ComboBox* outputBoxes[4] = {
         &outputBox1, &outputBox2, &outputBox3, &outputBox4
     };

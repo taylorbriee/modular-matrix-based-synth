@@ -8,6 +8,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_XCODE_GENERATE_SCHEME OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
+add_compile_definitions(DEBUG)
+
+
 # We're going to use CPM as our package manager to bring in JUCE
 # Check to see if we have CPM installed already.  Bring it in if we don't.
 set(CPM_DOWNLOAD_VERSION 0.34.0)
@@ -20,12 +23,25 @@ endif ()
 
 include(${CPM_DOWNLOAD_LOCATION})
 
+#include(cmake/FocusriteE2EConfig.cmake)
+
+
+
 # Bring in JUCE locally
 CPMAddPackage(
         NAME juce
         GIT_REPOSITORY https://github.com/juce-framework/JUCE.git
         GIT_TAG 8.0.12
 )
+
+CPMAddPackage(
+        NAME focusriteTest
+        GIT_REPOSITORY https://github.com/FocusriteGroup/juce-end-to-end.git
+        GIT_TAG main
+)
+
+
+
 # Make sure you include any new source files here
 
 set(SourceFiles
@@ -95,5 +111,8 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_graphics
         juce::juce_gui_basics
         juce::juce_gui_extra
+
+        PRIVATE
+        focusrite-e2e::focusrite-e2e
 )
 
