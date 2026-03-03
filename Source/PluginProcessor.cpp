@@ -14,9 +14,7 @@ WebMatrixSynthAudioProcessor::WebMatrixSynthAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
     : AudioProcessor (BusesProperties()
                      #if !JucePlugin_IsMidiEffect
-                      #if !JucePlugin_IsSynth
-                       .withInput  ("Input", juce::AudioChannelSet::stereo(), true)
-                      #endif
+                        .withInput  ("Input", juce::AudioChannelSet::discreteChannels(32), true)
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
                        )
@@ -167,24 +165,37 @@ bool WebMatrixSynthAudioProcessor::isBusesLayoutSupported (const BusesLayout& la
 void WebMatrixSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
 
-    juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
     auto totalNumOutputChannels = getTotalNumOutputChannels();
 
+    // DBG("Input channels = " << totalNumInputChannels);
+    // DBG("Output channels = " << totalNumOutputChannels);
+    // DBG("Buffer channels = " << buffer.getNumChannels());
 
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
+    #ifdef TEST
+        for (int ch = 0; ch < buffer.getNumChannels(); ch++)
+        {
+            auto* channelData = buffer.getReadPointer(ch);
+
+            float rms = buffer.getRMSLevel(ch, 0, buffer.getNumSamples());
+            for (int i = 0; i < buffer.getNumSamples(); i++)
+            {
+                float sample = channelData[i];
+            }
+            DBG("ch=" << ch << " rms=" << rms);
+        }
+
+    #endif
+
+
+
+
     
     
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
-    }
-    
     
     
 }

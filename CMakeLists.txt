@@ -8,7 +8,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_XCODE_GENERATE_SCHEME OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-add_compile_definitions(DEBUG)
 
 
 # We're going to use CPM as our package manager to bring in JUCE
@@ -19,7 +18,7 @@ set(CPM_DOWNLOAD_LOCATION "${CMAKE_BINARY_DIR}/cmake/CPM_${CPM_DOWNLOAD_VERSION}
 if (NOT EXISTS ${CPM_DOWNLOAD_LOCATION})
     message(STATUS "Downloading CPM.cmake to ${CPM_DOWNLOAD_LOCATION}")
     file(DOWNLOAD https://github.com/cpm-cmake/CPM.cmake/releases/download/v${CPM_DOWNLOAD_VERSION}/CPM.cmake ${CPM_DOWNLOAD_LOCATION})
-endif ()
+endif()
 
 include(${CPM_DOWNLOAD_LOCATION})
 
@@ -61,8 +60,7 @@ set(SourceFiles
         Source/Modules/LFO/LFOComponent.H
 
         Source/Modules/OSC/OSCComponent.cpp
-        Source/Modules/OSC/OSCComponent.h
-)
+        Source/Modules/OSC/OSCComponent.h)
 
 # Change these to your own preferences
 juce_add_plugin(${PROJECT_NAME}
@@ -77,8 +75,7 @@ juce_add_plugin(${PROJECT_NAME}
         PLUGIN_MANUFACTURER_CODE TBAu
         PLUGIN_CODE Reg0
         FORMATS VST3 AU Standalone
-        PRODUCT_NAME "MatrixSynth"
-)
+        PRODUCT_NAME "MatrixSynth")
 
 # How we want our SourceFiles to appear in our IDE
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${SourceFiles})
@@ -91,8 +88,7 @@ target_compile_definitions(${PROJECT_NAME}
         PUBLIC
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
-        JUCE_VST3_CAN_REPLACE_VST2=0
-)
+        JUCE_VST3_CAN_REPLACE_VST2=0)
 
 # JUCE libraries to bring into our project
 target_link_libraries(${PROJECT_NAME}
@@ -115,4 +111,72 @@ target_link_libraries(${PROJECT_NAME}
         PRIVATE
         focusrite-e2e::focusrite-e2e
 )
+
+
+
+
+
+
+
+
+
+juce_add_plugin("SynthTester"
+        COMPANY_NAME TaylorBrierley
+        IS_SYNTH TRUE
+        NEEDS_MIDI_INPUT TRUE
+        NEEDS_MIDI_OUTPUT FALSE
+        IS_MIDI_EFFECT FALSE
+        EDITOR_WANTS_KEYBOARD_FOCUS FALSE
+        JUCE_VST3_CAN_REPLACE_VST2 FALSE
+        COPY_PLUGIN_AFTER_BUILD TRUE
+        PLUGIN_MANUFACTURER_CODE TBAu
+        PLUGIN_CODE Reg0
+        FORMATS Standalone
+        PRODUCT_NAME "MatrixSynth")
+
+
+
+
+
+
+
+# Make the SourceFiles buildable
+target_sources("SynthTester" PRIVATE ${SourceFiles})
+
+target_compile_definitions("SynthTester"
+        PRIVATE
+        TEST
+        DEBUG_BUILD
+)
+
+# These are some toggleable options from the JUCE CMake API
+target_compile_definitions("SynthTester"
+        PUBLIC
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_CURL=0
+        JUCE_VST3_CAN_REPLACE_VST2=0)
+
+# JUCE libraries to bring into our project
+target_link_libraries("SynthTester"
+        PUBLIC
+        juce::juce_audio_basics
+        juce::juce_audio_devices
+        juce::juce_audio_formats
+        juce::juce_audio_plugin_client
+        juce::juce_audio_processors
+        juce::juce_audio_processors_headless
+        juce::juce_audio_utils
+        juce::juce_core
+        juce::juce_data_structures
+        juce::juce_dsp
+        juce::juce_events
+        juce::juce_graphics
+        juce::juce_gui_basics
+        juce::juce_gui_extra
+
+        PRIVATE
+        focusrite-e2e::focusrite-e2e
+)
+
+
 

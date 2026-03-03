@@ -64,7 +64,7 @@ describe('My app tests', () => {
         await loadVCO(sleep, 1, 300, 2.0);
         await app.setSliderValue("1x1Dial", 10.0);
 
-        await loadLFO(sleep, 2, 100);
+        await loadLFO(sleep, 2, 30);
         await app.setSliderValue("2x2Dial", 10.0);
         await app.setComboBoxSelectedItemIndex('outputBox2', 2);
     });
@@ -74,13 +74,14 @@ describe('My app tests', () => {
         await loadVCO(sleep, 1, 300, 2.0);
         await app.setSliderValue("1x1Dial", 10.0);
 
-        await loadLFO(sleep, 2, 100);
+        await loadLFO(sleep, 2, 25);
         await app.setSliderValue("2x2Dial", 10.0);
         await app.setComboBoxSelectedItemIndex('outputBox2', 2);
 
-        await loadLFO(sleep, 3, 150);
+        await loadLFO(sleep, 3, 40);
         await app.setSliderValue("2x3Dial", 5.0);
 
+        app
     });
 
 
@@ -92,11 +93,11 @@ describe('My app tests', () => {
         await loadVCO(sleep, 2, 500, 2.0);
         await app.setSliderValue("2x2Dial", 10.0);
 
-        await loadLFO(sleep, 3, 100);
+        await loadLFO(sleep, 3, 20);
         await app.setSliderValue("3x3Dial", 10.0);
         await app.setComboBoxSelectedItemIndex('outputBox3', 2);
 
-        await loadLFO(sleep, 4, 200);
+        await loadLFO(sleep, 4, 30);
         await app.setSliderValue("4x4Dial", 10.0);
         await app.setComboBoxSelectedItemIndex('outputBox4', 6);
 

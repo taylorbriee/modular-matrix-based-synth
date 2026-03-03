@@ -85,7 +85,7 @@ void SynthVoice::populateMatrixValues(){
         
 
         float oscValue = InputOscillators[y].processSample(0.0f);
-        
+
         
         
         
@@ -148,7 +148,7 @@ void SynthVoice::calcOutputVoltages(){
 
 
 void SynthVoice::OSC_Creation(int i, const juce::String &slot, juce::String Module) {
-   
+
     bool isEnabled = apvts.getRawParameterValue(slot+"_"+Module+"_isEnabled")->load();
 
     juce::dsp::Oscillator<float>& selectedOscillator = InputOscillators.at(i);
@@ -193,59 +193,57 @@ void SynthVoice::OSC_Creation(int i, const juce::String &slot, juce::String Modu
 void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSamples)
 {
     jassert(isPrepared);
-    
+
     juce::dsp::AudioBlock<float> audioBlock { outputBuffer };
 
 
-    
+
     //for the columns that have main output selected, sum up the values in that column
     //create an ossilator with the initilize function just being the varaible of the summed voltage values.
     //call prepare on those ossilators.
-    
 
-        
+
+
     for (int i=0; i<4; i++){
-        
+
         //check is enabled
         juce::String slot = "Slot" + juce::String(i+1);
-        
-        
+
+
 //        bool LFOisEnabled = apvts.getRawParameterValue(slot+"_LFO_isEnabled")->load();
 
 
         OSC_Creation(i, slot, "VCO");
         OSC_Creation(i, slot, "LFO");
-        
-        
 
-        
+
     }
-        
+
         //check which dropdown has Main Output selected
         //then depending on which do pass voltage to that osc and process it to th
-        
+
 
     for (int i = 0; i < 4; i++)
     {
         auto* outputSelectParam = dynamic_cast<juce::AudioParameterChoice*>(apvts.getParameter("Matrix_Output" + juce::String(i + 1)));
         juce::String outputDropdown = outputSelectParam->getCurrentChoiceName();
         isMainOutput[i] = outputDropdown;
-        
+
         vcoModValues[i] = apvts.getRawParameterValue("Slot"+juce::String(i + 1)+"_VCO_Freq_Mod")->load();
-        
+
 //        DBG("Output "+ juce::String(i)+ juce::String(outputDropdown));
-        
+
         //append to outputChoicesArray here, make sure you are converting the combo box text to parameter ID before you store it.
-        
-        
+
+
         //we need the box id to get the corripsonding parameter id from OutComboBoxIdToText.
-        
-//        outputSelections[i] = 
-        
+
+//        outputSelections[i] =
+
 //        DBG("Output "+juce::String(i+1)+" choice: "+ juce::String(isMainOutput[i] ? "true" : "false"));
 
     }
-    
+
     //Itterate over
 
     for (int sample = 0; sample < numSamples; ++sample)
@@ -255,7 +253,7 @@ void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int 
         populateMatrixValues();
         calcOutputVoltages();
 
-        
+
         //looping over outputs
         for (int i = 0; i < 4; i++)
         {
@@ -270,22 +268,23 @@ void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int 
                 summedVoltage += outputVoltages[i];
 
             }
-            
+
             else if (isMainOutput[i].contains("_VCO_Freq")){
-                
-                
+
+
 //                DBG("Output Volt: "+ juce::String(outputVoltages[i]));
 
-                
+
                 juce::String text = isMainOutput[i]; // Example: "Slot1_VCO_Freq"
 
                 if (text.matchesWildcard("Slot?_*", false))  // Ensures format before extracting
                 {
                     juce::String numberPart = text.fromFirstOccurrenceOf("Slot", false, false)
                         .upToFirstOccurrenceOf("_", false, false);
-                    
+
                     oscIndex = numberPart.getIntValue(); // Converts to int safely
-                    
+
+
                 }
                 //ISSUE
 //                DBG("Checking Frequency of osc " + juce::String(oscIndex - 1) + ": " +
@@ -294,28 +293,28 @@ void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int 
                 currentFreq = InputOscillators[oscIndex-1].getFrequency();
                 currentDepthParam = vcoModValues[oscIndex-1];
                 currentColumnSig = outputVoltages[i];
-                
-                
-                
-//                DBG("currentFreq: "+juce::String(currentFreq));
-                
-//                float convertedFreq = convertVoltageToFrequency(outputVoltages[i]);
 
 
-                
+
+//              DBG("currentFreq: "+juce::String(currentFreq));
+
+//              float convertedFreq = convertVoltageToFrequency(outputVoltages[i]);
+
+
+
                 float modFreq = (currentDepthParam / 100.0f) * currentColumnSig * 1000.0;
 
                 modFreq = currentFreq + (currentColumnSig * currentDepthParam);
                 limitedFreq = juce::jlimit(0.0f, 5915.0f, modFreq);
-                
-//                DBG("convertedFreq: "+juce::String(convertedFreq));
 
-                
-//                DBG("currentFreq: "+juce::String(limitedFreq));
+//              DBG("convertedFreq: "+juce::String(convertedFreq));
 
-//                DBG("Limited freq: "+juce::String(limitedFreq));
+
+//              DBG("currentFreq: "+juce::String(limitedFreq));
+
+//              DBG("Limited freq: "+juce::String(limitedFreq));
                 InputOscillators[oscIndex-1].setFrequency(limitedFreq);
-                
+
             }
         }
 
